@@ -1,9 +1,14 @@
 ---
-opcoes:
-  corte:
-    titulo: ''
-    valor: 23.50
-    comissao: 0.50
-  
-  # Compras
+corte-curto-social:
+  titulo: 'outro nome'
+  valor: 23.50
+  comissao: 0.50
 
+corte longo social:
+  titulo: 'outro nome'
+  valor: 15.00
+  comissao: 0.50
+
+corte longo invocado:
+  valor: 15.00
+  comissao: 0.50
