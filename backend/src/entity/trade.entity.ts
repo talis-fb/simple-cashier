@@ -11,12 +11,15 @@ export const PaymentMethodValues = [
 export type PaymentMethod = (typeof PaymentMethodValues)[number];
 
 export class TradeData {
+  @ApiProperty()
   @IsNotEmpty()
   service: Service;
 
+  @ApiProperty()
   @IsNotEmpty()
   employee: string;
 
+  @ApiProperty()
   @IsIn(PaymentMethodValues)
   paymentMethod: PaymentMethod;
 }

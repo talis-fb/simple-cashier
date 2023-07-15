@@ -20,7 +20,7 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it('Fluxo basico', async () => {
+  it('Crud de CAIXA basico', async () => {
     const initialGet = await request(app.getHttpServer()).get('/caixa');
 
     expect(initialGet.statusCode).toEqual(200);
