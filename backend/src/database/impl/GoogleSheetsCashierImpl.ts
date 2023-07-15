@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CashierRepository } from './CashierRepository.repository';
+import { CashierRepository } from '../repository/CashierRepository.repository';
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
 
 // @Injectable

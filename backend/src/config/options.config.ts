@@ -2,7 +2,17 @@ import { readFileSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { join } from 'path';
 
-const YAML_CONFIG_FILENAME = 'registros.yaml';
+const YAML_CONFIG_FILENAME = join('..', '..', 'registros.yaml');
+
+export interface OptionConfig {
+  opcoes: {
+    corte: {
+      titulo: string;
+      valor: number;
+      comisao: number;
+    }[];
+  };
+}
 
 export default () => {
   return yaml.load(
