@@ -1,12 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import type { OptionConfig, Option } from '@/types'
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
+export const useStore = defineStore('options', () => {
+  const currentTrade = ref<Option>()
+
+  function setTrade(trade: Option) {
+    currentTrade.value = trade
   }
 
-  return { count, doubleCount, increment }
+  function resetTrade() {
+    currentTrade.value = undefined
+  }
+
+  return { currentTrade, setTrade, resetTrade }
 })

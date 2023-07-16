@@ -5,26 +5,26 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <v-app>
-    <v-navigation-drawer class="pt-4" color="grey-lighten-3" model-value>
-      <v-list>
-        <v-list-item
-          prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-          title="Sandra Adams"
-        ></v-list-item>
-      </v-list>
+    <v-app-bar>
+      <v-spacer></v-spacer>
+      
+      <v-tabs
+        centered
+        color="grey-darken-2"
+      >
+        <v-tab to="/">Serviços</v-tab>
+        <v-tab to="/get">Registrados</v-tab>
+      </v-tabs>
+      
+      <v-spacer></v-spacer>
 
-      <v-divider></v-divider>
+      <v-avatar
+        class="hidden-sm-and-down"
+        color="grey-darken-1"
+        size="32"
+      ></v-avatar>
 
-      <v-list density="compact" nav>
-        <v-list-item prepend-icon="mdi-folder" title="My Files" value="myfiles"></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account-multiple"
-          title="Shared with me"
-          value="shared"
-        ></v-list-item>
-        <v-list-item prepend-icon="mdi-star" title="Starred" value="starred"></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    </v-app-bar>
 
     <v-main>
       <router-view />

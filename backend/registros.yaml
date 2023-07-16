@@ -1,14 +1,15 @@
 ---
-corte-curto-social:
-  titulo: 'outro nome'
-  valor: 23.50
+Corte Social simples:
+  titulo: 'Corte Social simples'
+  valor: 12.00
   comissao: 0.50
 
-corte longo social:
-  titulo: 'outro nome'
+Corte brabo:
+  titulo: 'Corte brabo'
   valor: 15.00
   comissao: 0.50
 
-corte longo invocado:
-  valor: 15.00
-  comissao: 0.50
+Gel:
+  titulo: 'Gel'
+  valor: 25.00
+  comissao: 0.20
