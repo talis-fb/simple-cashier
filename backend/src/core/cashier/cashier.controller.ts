@@ -24,6 +24,11 @@ export class CashierController {
     return this.cashierService.findAll();
   }
 
+  @Get('employee/:name')
+  async findByEmployee(@Param('name') name: string) {
+    return this.cashierService.findByEmployee(name);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.cashierService.findOne(id);

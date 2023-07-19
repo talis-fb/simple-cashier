@@ -14,6 +14,10 @@ export class CashierService {
     return this.dbService.getAll();
   }
 
+  findByEmployee(name: string) {
+    return this.dbService.getAllOfEmployee(name);
+  }
+
   findOne(id: string) {
     return this.dbService.getById(id);
   }

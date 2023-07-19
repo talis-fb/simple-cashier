@@ -6,6 +6,7 @@ import optionsConfig from './config/options.config';
 
 import { CashierModule } from './core/cashier/cashier.module';
 import { OptionsModule } from './core/options/options.module';
+import { UsersModule } from './core/users/users.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { OptionsModule } from './core/options/options.module';
     }),
     CashierModule,
     OptionsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

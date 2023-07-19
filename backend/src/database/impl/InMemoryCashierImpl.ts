@@ -16,6 +16,10 @@ export class InMemoryCashierImpl extends CashierRepository {
     return cash ? cash : null;
   }
 
+  async getAllOfEmployee(name: string): Promise<TradeEntity[]> {
+    return this.tradeList.filter(el => el.employee == name)
+  }
+
   async create(data: TradeData): Promise<TradeEntity> {
     const newCash: TradeEntity = {
       id: v4(), // Generate a random ID or use any other logic
