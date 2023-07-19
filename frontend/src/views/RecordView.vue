@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
-const desserts = reactive([
-  { name: 'Pedro', age: 21 },
-  { name: 'Lucaas', age: 25 }
-])
+import { useFetch } from '@vueuse/core'
+import { computed } from 'vue'
+import { onMounted, ref } from 'vue'
+import type { TradeData } from '@/types'
+
+const NAME = 'joao'
+const { data, isFetching, error } = useFetch(`http://localhost:3000/api/v1/caixa/employee/${NAME}`)
+  .get()
+  .json<TradeData[]>()
+
+const records = computed(() => Object.values(data.value || []))
 </script>
 
 <template>
@@ -16,9 +23,10 @@ const desserts = reactive([
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in desserts" :key="item.name">
-        <td>{{ item.name }}</td>
-        <td>{{ item.age }}</td>
+      <tr v-for="(item, ind) in data" :key="ind">
+        <td>{{ item.date.toDateString() }}</td>
+        <td>{{ item.service.title }}</td>
+        <td>{{ item.service.value }}</td>
       </tr>
     </tbody>
   </v-table>

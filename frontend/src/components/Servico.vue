@@ -7,14 +7,10 @@ const { setTrade } = useStore()
 defineProps<{
   option: Option
 }>()
-
 </script>
 
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="400"
-  >
+  <v-card class="mx-auto" max-width="400">
     <v-img
       v-if="option.imagem"
       :src="option.imagem"
@@ -25,13 +21,10 @@ defineProps<{
 
     <v-card-item>
       <v-card-title>{{ option.titulo }}</v-card-title>
-      <!-- <v-card-subtitle>{{  option.description }}</v-card-subtitle> -->
     </v-card-item>
 
     <v-card-actions>
-      <v-btn to="/add" color="orange" @click="() => setTrade(option)">
-        Efetuar
-      </v-btn>
+      <v-btn to="/add" color="orange" @click="() => setTrade(option)"> Efetuar </v-btn>
     </v-card-actions>
   </v-card>
 </template>

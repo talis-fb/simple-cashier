@@ -7,23 +7,15 @@ import { RouterLink } from 'vue-router'
   <v-app>
     <v-app-bar>
       <v-spacer></v-spacer>
-      
-      <v-tabs
-        centered
-        color="grey-darken-2"
-      >
+
+      <v-tabs centered color="grey-darken-2">
         <v-tab to="/">Serviços</v-tab>
         <v-tab to="/get">Registrados</v-tab>
       </v-tabs>
-      
+
       <v-spacer></v-spacer>
 
-      <v-avatar
-        class="hidden-sm-and-down"
-        color="grey-darken-1"
-        size="32"
-      ></v-avatar>
-
+      <v-avatar class="hidden-sm-and-down" color="grey-darken-1" size="32"></v-avatar>
     </v-app-bar>
 
     <v-main>

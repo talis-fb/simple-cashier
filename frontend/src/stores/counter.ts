@@ -2,16 +2,26 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { OptionConfig, Option } from '@/types'
 
+const DEFAULT_TRADE = {
+  imagem: '',
+  comisao: 0,
+  titulo: '',
+  categoria: '',
+  valor: 0
+} as const
+
 export const useStore = defineStore('options', () => {
-  const currentTrade = ref<Option>()
+  const currentTrade = ref<Option>(DEFAULT_TRADE)
+  const comingFromAnOption = ref<boolean>(false)
 
   function setTrade(trade: Option) {
     currentTrade.value = trade
+    comingFromAnOption.value = true
   }
 
   function resetTrade() {
-    currentTrade.value = undefined
+    currentTrade.value = DEFAULT_TRADE
   }
 
-  return { currentTrade, setTrade, resetTrade }
+  return { currentTrade, comingFromAnOption, setTrade, resetTrade }
 })
