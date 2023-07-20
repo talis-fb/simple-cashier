@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouterOptions } from 'vue-router'
+import { createRouter, createWebHistory, type Router, type RouterOptions } from 'vue-router'
 
 import MainLayout from '../layouts/Main.vue'
 
@@ -33,4 +33,19 @@ export const router: RouterOptions = {
       component: () => import('@/views/LoginView.vue')
     }
   ]
+}
+
+import { useStore } from '@/stores/user'
+
+export const setupGuards = (router: Router) => {
+  
+  router.beforeEach(async (to, from, next) => {
+    const { isLogged } = useStore()
+
+    if(!isLogged() && to.name !== "login") {
+      return next('/login')
+    }
+
+    next()
+  })
 }

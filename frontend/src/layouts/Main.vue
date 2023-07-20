@@ -1,6 +1,14 @@
 <script lang="ts" setup>
-import { RouterLink } from 'vue-router'
-//
+import { useStore } from "@/stores/user"
+const { currentUser, resetUser } = useStore()
+
+import router from '@/plugins/router'
+
+function logout() {
+  resetUser()
+  router.push('/login')
+}
+
 </script>
 
 <template>
@@ -15,10 +23,15 @@ import { RouterLink } from 'vue-router'
 
       <v-spacer></v-spacer>
 
-      <v-avatar class="hidden-sm-and-down" color="grey-darken-1" size="32"></v-avatar>
+      <v-avatar class="hidden-sm-and-down" size="32" @click="logout" >
+        <v-img
+          :src='currentUser.foto'
+          alt='John'
+        ></v-img>
+      </v-avatar>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="p-5">
       <router-view />
     </v-main>
   </v-app>

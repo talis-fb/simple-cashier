@@ -26,3 +26,8 @@ export interface TradeData {
   employee: string
   paymentMethod: PaymentMethod
 }
+
+export interface User {
+  nome: string
+  foto: string
+}

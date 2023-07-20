@@ -1,57 +1,71 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-
 import { useStore } from '@/stores/counter'
-import { onMounted } from 'vue'
 const { currentTrade, comingFromAnOption, resetTrade } = useStore()
 
-import type { Service, TradeData } from '@/types'
-import { ref } from 'vue'
-
-// onMounted(() => {
-//   if(currentTrade) {
-//     formData
-//   }
-// })
+import SelectMeioPagamento from '@/components/SelectMeioPagamento.vue'
+import { ref } from 'vue';
 
 function submit() {
   resetTrade()
 }
 
 function clearForm() {}
+
+const meioPagamento = ref()
 </script>
 
 <template>
+
+<v-row justify="center">
+    <v-col
+      cols="12"
+      sm="10"
+      md="8"
+      lg="6"
+    >
   <form @submit.prevent="submit">
 
     <v-text-field 
+      label="Nome do serviço"
       :disabled="comingFromAnOption" 
       v-model="currentTrade.titulo" 
-      label="Name"
+      variant="outlined"
     />
 
     <v-text-field
-      label="Phone Number"
+      label="Valor"
       :disabled="comingFromAnOption"
       v-model="currentTrade.valor"
+      variant="outlined"
+    />
+
+    <v-text-field
+      label="Meio de pagamento"
+      :disabled="comingFromAnOption"
+      v-model="currentTrade.valor"
+      variant="outlined"
     />
 
     <v-text-field 
-      label="E-mail"
+      label="Comissão"
       :disabled="comingFromAnOption"
       v-model="currentTrade.comisao"
+      variant="outlined"
     />
 
     <v-text-field 
-      label="E-mail"
+      label="Categoria"
       :disabled="comingFromAnOption"
       v-model="currentTrade.categoria"
+      variant="outlined"
     />
 
-    <!-- <v-text-field v-model="currentTrade?." label="E-mail"></v-text-field> -->
+    <SelectMeioPagamento v-model="meioPagamento" />
 
     <v-btn class="me-4" type="submit"> submit </v-btn>
 
     <v-btn @click="clearForm"> clear </v-btn>
   </form>
+</v-col>
+  </v-row>
 </template>

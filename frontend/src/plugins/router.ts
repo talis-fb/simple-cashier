@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import { router } from '../router'
+import { router as routerOptions, setupGuards } from '../router'
 
-export default createRouter(router)
+const router = createRouter(routerOptions)
+setupGuards(router)
+
+export default router
