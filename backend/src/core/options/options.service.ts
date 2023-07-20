@@ -15,6 +15,6 @@ export class OptionService {
   }
 
   findOne(name: string) {
-    return this.options[name];
+    return this.options.filter(el => el.titulo == name);
   }
 }

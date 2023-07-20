@@ -1,15 +1,12 @@
 ---
-Corte Social simples:
-  titulo: 'Corte Social simples'
+- titulo: 'Corte Social simples'
   valor: 12.00
   comissao: 0.50
 
-Corte brabo:
-  titulo: 'Corte brabo'
+- titulo: 'Corte brabo'
   valor: 15.00
   comissao: 0.50
 
-Gel:
-  titulo: 'Gel'
+- titulo: 'Gel'
   valor: 25.00
   comissao: 0.20
