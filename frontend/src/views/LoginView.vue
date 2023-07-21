@@ -15,11 +15,6 @@ const opts = computed(() => Object.values(data.value || {}))
 
 <template>
   <div class="login">
-    <LoginUserCard
-    v-for="obj, ind in data"
-    :key="ind"
-    :user="obj"
-  />
-  </div> 
+    <LoginUserCard v-for="(obj, ind) in data" :key="ind" :user="obj" />
+  </div>
 </template>
-

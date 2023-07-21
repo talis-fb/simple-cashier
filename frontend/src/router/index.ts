@@ -38,11 +38,10 @@ export const router: RouterOptions = {
 import { useStore } from '@/stores/user'
 
 export const setupGuards = (router: Router) => {
-  
   router.beforeEach(async (to, from, next) => {
     const { isLogged } = useStore()
 
-    if(!isLogged() && to.name !== "login") {
+    if (!isLogged() && to.name !== 'login') {
       return next('/login')
     }
 
