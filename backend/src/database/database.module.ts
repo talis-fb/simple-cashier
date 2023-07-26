@@ -6,6 +6,7 @@ import optionsConfig from '../config/options.config';
 
 import { CashierRepository } from './repository/CashierRepository.repository';
 import { InMemoryCashierImpl } from './impl/InMemoryCashierImpl';
+import { GoogleSpreadsheetCashierImpl } from './impl/GoogleSheetsCashierImpl';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { InMemoryCashierImpl } from './impl/InMemoryCashierImpl';
   providers: [
     {
       provide: CashierRepository,
-      useClass: InMemoryCashierImpl,
+      useClass: GoogleSpreadsheetCashierImpl,
     },
   ],
   exports: [CashierRepository],

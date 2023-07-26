@@ -1,5 +1,9 @@
 .env
 
+# Google API Credencials
+credentials.json
+
+
 # compiled output
 /dist
 /node_modules
