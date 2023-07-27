@@ -1,13 +1,13 @@
 ---
 - titulo: 'Corte Social simples'
   valor: 12.00
-  comissao: 0.50
+  comissao: 50
   imagem: 'http://www.thewowstyle.com/wp-content/uploads/2015/01/images-of-nature-4.jpg'
 
 - titulo: 'Corte brabo'
   valor: 15.00
-  comissao: 0.50
+  comissao: 50
 
 - titulo: 'Gel'
   valor: 25.00
-  comissao: 0.20
+  comissao: 20

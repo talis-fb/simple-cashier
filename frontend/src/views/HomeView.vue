@@ -67,21 +67,6 @@ const optionsToShow = computed(() => {
           <Servico :option="option" />
         </v-col>
       </template>
-
-      {{ optionsToShow }}
-
-      <!-- <br />
-    {{ data }}
-    --
-    <br />
-    
-    {{ isFetching }}
-    
-    <br />
-    ---
-    <br />
-    
-    {{ error }} -->
     </v-row>
   </v-container>
 </template>
