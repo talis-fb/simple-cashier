@@ -4,7 +4,7 @@ import type { OptionConfig, Option } from '@/types'
 
 const DEFAULT_TRADE = {
   imagem: '',
-  comisao: 0,
+  comissao: 0,
   titulo: '',
   categoria: '',
   valor: 0
@@ -21,6 +21,7 @@ export const useStore = defineStore('options', () => {
 
   function resetTrade() {
     currentTrade.value = DEFAULT_TRADE
+    comingFromAnOption.value = false
   }
 
   return { currentTrade, comingFromAnOption, setTrade, resetTrade }

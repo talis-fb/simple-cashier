@@ -1,7 +1,9 @@
+import { PaymentMethodValues } from '@/constants'
+
 export interface Option {
   titulo: string
   valor: number
-  comisao: number
+  comissao: number
   imagem?: string
   categoria?: string
 }
@@ -9,8 +11,6 @@ export interface Option {
 export type OptionConfig = Record<string, Option>
 
 export type PaymentMethod = (typeof PaymentMethodValues)[number]
-
-export const PaymentMethodValues = ['cash', 'pix', 'debit-card', 'credit-card'] as const
 
 export interface Service {
   name: string

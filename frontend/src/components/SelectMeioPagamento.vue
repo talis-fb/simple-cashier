@@ -4,7 +4,7 @@ import { useStore } from '@/stores/user'
 import { ref, watch } from 'vue'
 const { currentUser } = useStore()
 
-const props = defineProps<{ modelValue: string }>()
+const props = defineProps<{ modelValue: string, errorMessages?: string }>()
 const emits = defineEmits(['update:modelValue'])
 
 const METHODS_PAYMENT = [
@@ -28,5 +28,6 @@ watch(selected, () => {
     v-model="selected"
     item-title="title"
     item-value="name"
+    :error-messages="errorMessages"
   />
 </template>

@@ -32,10 +32,6 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
       "google-sheets",
     );
 
-    // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    // console.log(credentials)
-    // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-
     const auth = new JWT({
       key: credentials["private_key"],
       email: credentials["client_email"],
@@ -60,7 +56,7 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
       // await this.doc.useServiceAccountAuth(this.credentials);
       await this.doc.loadInfo();
       // this.sheet = this.doc.sheetsById[this.sheetName];
-      this.sheet = this.doc.sheetsByIndex[0];
+      this.sheet = this.doc.sheetsByTitle[this.sheetName]
       console.log("BBBBBBBBBBBB");
       this.isAuth = true;
     }
