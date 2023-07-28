@@ -9,7 +9,7 @@ async function bootstrap() {
   // Api setup
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.setGlobalPrefix('api/v1');
-  app.enableCors();
+  // app.enableCors();
 
   // Swagger
   const config = new DocumentBuilder()

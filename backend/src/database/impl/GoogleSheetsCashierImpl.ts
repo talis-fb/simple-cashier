@@ -17,8 +17,6 @@ import * as moment from 'moment'
 
 @Injectable()
 export class GoogleSpreadsheetCashierImpl implements CashierRepository {
-  // private readonly credentials: string = credentials;
-  // private authGoogle: OAuth2Client;
   private doc: GoogleSpreadsheet;
 
   private readonly spreadsheetId: string;
@@ -28,38 +26,34 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
   private isAuth: boolean;
 
   constructor(private readonly configService: ConfigService) {
-    const { spreadsheetId, sheetName, credentials } = this.configService.get<
+    const { spreadsheetId, sheetName, privateKey, clientEmail } = this.configService.get<
       GoogleConfig
     >(
       "google-sheets",
     );
 
     const auth = new JWT({
-      key: credentials["private_key"],
-      email: credentials["client_email"],
+      key: privateKey,
+      email: clientEmail,
       scopes: [
         "https://www.googleapis.com/auth/spreadsheets",
       ],
     });
     const googleSheets = new GoogleSpreadsheet(spreadsheetId, auth);
 
-    // this.authGoogle = auth;
     this.doc = googleSheets;
     this.spreadsheetId = spreadsheetId;
     this.sheetName = sheetName;
 
     this.isAuth = false;
-    // this.sheet = this.doc.sheetsById
   }
 
   private async authorize() {
     if (!this.isAuth) {
-      console.log("Auth");
-      // await this.doc.useServiceAccountAuth(this.credentials);
+      console.log("Authenticating...");
       await this.doc.loadInfo();
-      // this.sheet = this.doc.sheetsById[this.sheetName];
       this.sheet = this.doc.sheetsByTitle[this.sheetName]
-      console.log("BBBBBBBBBBBB");
+      console.log("[ Authentication ] => OK");
       this.isAuth = true;
     }
   }
