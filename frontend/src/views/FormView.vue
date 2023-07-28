@@ -20,7 +20,7 @@ const { handleSubmit, resetForm, isSubmitting } = useForm({
     serviceName: yup.string().required(),
     value: yup.number().required().positive(),
     paymentMethod: yup.string().required().oneOf(PaymentMethodValues),
-    comission: yup.number().required().max(100).min(0)
+    comission: yup.number().required().positive().max(100)
   })
 })
 

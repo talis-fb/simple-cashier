@@ -7,6 +7,7 @@ import { onMounted, ref } from 'vue'
 import type { TradeData } from '@/types'
 import { useStore } from '@/stores/user'
 import moment from 'moment'
+import { number } from 'yup'
 
 const { currentUser } = useStore()
 
@@ -16,11 +17,36 @@ const { data, isFetching, error, statusCode } = useFetch(`http://localhost:3000/
 
 const records = computed(() => Object.values(data.value || []))
 
+const getComissionValue = (value: number, comission: number) => {
+  return parseFloat((value * (comission / 100)).toFixed(4))
+}
+
+const START_OF_TODAY = (() => {
+  const BEGIN_TODAY = new Date()
+  BEGIN_TODAY.setHours(0, 0, 1, 1);
+  return BEGIN_TODAY
+})()
+
+const START_OF_WEEK = ((date: Date) => {
+  const dayOfWeek = date.getDay();
+  const diff = date.getDate() - dayOfWeek; // Subtracting the day of the week to get to Sunday
+
+  // Create a new date object for the beginning of Sunday
+  const beginningOfSunday = new Date(date);
+  beginningOfSunday.setDate(diff);
+
+  // Reset the time to 00:00:00
+  beginningOfSunday.setHours(0, 0, 0, 0);
+
+  return beginningOfSunday;
+})(START_OF_TODAY)
+
+
 const dailyGain = computed(() => {
   if(data.value) {
     return data.value
-      //.filter( DIARIO )
-      .map(el => el.service.value * (el.service.commission/100))
+    .filter(el => Number(el.date) > START_OF_TODAY.getTime())
+      .map(el => getComissionValue(el.service.value, el.service.commission))
       .reduce((a,b) => a + b, 0)
   }
   return null
@@ -29,8 +55,8 @@ const dailyGain = computed(() => {
 const weeklyGain = computed(() => {
   if(data.value) {
     return data.value
-      //.filter( SEMANAL )
-      .map(el => el.service.value * (el.service.commission/100))
+      .filter(el => Number(el.date) > START_OF_WEEK.getTime())
+      .map(el => getComissionValue(el.service.value, el.service.commission))
       .reduce((a,b) => a + b, 0)
   }
   return null
@@ -64,7 +90,7 @@ const dataFormatted = computed(() => {
           width="400"
         >
           <v-card-title>
-            Ganho do dia: R$ {{  dailyGain }}
+            Ganho do dia: R$ {{  dailyGain.toFixed(2) }}
           </v-card-title>
         </v-card>
       </v-col>
@@ -75,7 +101,7 @@ const dataFormatted = computed(() => {
           width="400"
         >
           <v-card-title>
-            Ganho da semana: R$ {{  weeklyGain }}
+            Ganho da semana: R$ {{  weeklyGain.toFixed(2) }}
           </v-card-title>
         </v-card>
         </v-col>
@@ -105,6 +131,7 @@ const dataFormatted = computed(() => {
             <th class="text-left">Serviço</th>
             <th class="text-left">Preço</th>
             <th class="text-left">Comissão</th>
+            <th class="text-left">Ganho</th>
           </tr>
         </thead>
         <tbody>
@@ -112,8 +139,9 @@ const dataFormatted = computed(() => {
           <tr v-for="(item, ind) in dataFormatted" :key="ind">
             <td>{{ item.date }}</td>
             <td>{{ item.service.name }}</td>
-            <td>{{ item.service.value }}</td>
-            <td>{{ item.service.commission }}</td>
+            <td>R$ {{ item.service.value }}</td>
+            <td>{{ item.service.commission }} % </td>
+            <td> + R$ {{ getComissionValue(item.service.value, item.service.commission) }} </td>
           </tr>
         </tbody>
       </v-table>
