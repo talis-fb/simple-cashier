@@ -23,7 +23,7 @@ export class InMemoryCashierImpl extends CashierRepository {
   async create(data: TradeData): Promise<TradeEntity> {
     const newCash: TradeEntity = {
       id: v4(), // Generate a random ID or use any other logic
-      date: new Date(),
+      date: new Date().getTime(),
       ...data,
     };
     this.tradeList.push(newCash);

@@ -1,4 +1,4 @@
-import { IsDate, IsIn, IsUUID, IsNotEmpty } from 'class-validator';
+import { IsDate, IsIn, IsUUID, IsNotEmpty, IsInt } from 'class-validator';
 import { Service } from './service.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -28,6 +28,6 @@ export class TradeEntity extends TradeData {
   @IsUUID()
   id: string;
 
-  @IsDate()
-  date: Date;
+  @IsInt()
+  date: number;
 }

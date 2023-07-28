@@ -12,6 +12,8 @@ import {
 import { JWT, OAuth2Client } from "google-auth-library";
 import { TradeData, TradeEntity } from "src/entity/trade.entity";
 import { randomUUID } from "crypto";
+import * as moment from 'moment'
+
 
 @Injectable()
 export class GoogleSpreadsheetCashierImpl implements CashierRepository {
@@ -87,7 +89,7 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
   async create(data: TradeData): Promise<TradeEntity> {
     await this.authorize();
 
-    const entity: TradeEntity = { ...data, id: randomUUID(), date: new Date() };
+    const entity: TradeEntity = { ...data, id: randomUUID(), date: new Date().getTime() };
 
     const newRow = this.mapToSheetRow(entity);
     const addedRow = await this.sheet!.addRow(newRow);
@@ -124,6 +126,8 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
   }
 
   private mapToSheetRow(data: TradeEntity): any {
+    const formattedDate = moment(new Date(data.date)).format('DD/MM/YYYY HH:mm')
+
     return {
       service_name: data.service.name,
       service_value: data.service.value,
@@ -131,14 +135,16 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
       employee: data.employee,
       payment_method: data.paymentMethod,
       id: data.id,
-      date: data.date,
+      date: formattedDate,
     };
   }
 
   private mapToTradeEntity(row: GoogleSpreadsheetRow): TradeEntity {
+    const date = moment(row.get('date'), 'DD/MM/YYYY HH:mm').toDate()
+
     return {
       id: row.get("id"),
-      date: new Date(row.get("date")),
+      date: date.getTime(),
       service: {
         name: row.get("service_name"),
         title: row.get("service_name"),
