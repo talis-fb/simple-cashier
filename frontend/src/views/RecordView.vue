@@ -6,10 +6,11 @@ import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 import type { TradeData } from '@/types'
 import { useStore } from '@/stores/user'
+import moment from 'moment'
 
 const { currentUser } = useStore()
 
-const { data, isFetching, error } = useFetch(`http://localhost:3000/api/v1/caixa/employee/${currentUser.nome}`)
+const { data, isFetching, error, statusCode } = useFetch(`http://localhost:3000/api/v1/caixa/employee/${currentUser.nome}`)
   .get()
   .json<TradeData[]>()
 
@@ -35,15 +36,62 @@ const weeklyGain = computed(() => {
   return null
 })
 
+const dataFormatted = computed(() => {
+  if(data.value) {
+    return data.value
+      .map(el => { 
+        const date = moment(new Date(el.date)).format( 'DD/MM/YYYY HH:mm')
+        return { ...el, date }
+      })
+  }
+  return null
+})
+
 </script>
 
 <template>
   <v-container>
+    <v-row v-if="error">
+        <v-alert  type="error" border class="mb-5">
+          STATUS {{  statusCode }} | {{ error }}
+        </v-alert>
+      </v-row>
+
+    <v-row>
+      <v-col v-if="dailyGain">
+        <v-card
+          class="mx-auto"
+          width="400"
+        >
+          <v-card-title>
+            Ganho do dia: R$ {{  dailyGain }}
+          </v-card-title>
+        </v-card>
+      </v-col>
+      <v-col v-if="weeklyGain">
+
+        <v-card
+          class="mx-auto"
+          width="400"
+        >
+          <v-card-title>
+            Ganho da semana: R$ {{  weeklyGain }}
+          </v-card-title>
+        </v-card>
+        </v-col>
+
+    </v-row>
 
     <v-row>
       <v-col>
-        Ganho no dia:  {{ dailyGain }}
-        Ganho semanal: {{  weeklyGain }}
+        <v-progress-linear
+          :active="isFetching"
+          color="deep-blue-accent-4"
+          class="mt-3"
+          rounded
+          height="6"
+          indeterminate
+        />
       </v-col>
     </v-row>
 
@@ -61,7 +109,7 @@ const weeklyGain = computed(() => {
         </thead>
         <tbody>
           
-          <tr v-for="(item, ind) in data" :key="ind">
+          <tr v-for="(item, ind) in dataFormatted" :key="ind">
             <td>{{ item.date }}</td>
             <td>{{ item.service.name }}</td>
             <td>{{ item.service.value }}</td>

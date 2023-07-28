@@ -22,7 +22,7 @@ export interface Service {
 export interface TradeData {
   id?: string
   service: Service
-  date: Date
+  date: string
   employee: string
   paymentMethod: PaymentMethod
 }

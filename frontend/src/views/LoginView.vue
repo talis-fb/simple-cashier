@@ -6,7 +6,7 @@ import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 import type { User } from '@/types'
 
-const { data, isFetching, error } = useFetch('http://localhost:3000/api/v1/users')
+const { data, isFetching, error, statusCode } = useFetch('http://localhost:3000/api/v1/users')
   .get()
   .json<User[]>()
 
@@ -16,6 +16,12 @@ const opts = computed(() => Object.values(data.value || {}))
 <template>
   <v-app>
     <v-container class="fill-height">
+      <v-row v-if="error">
+        <v-alert  type="error" border class="mb-5">
+          STATUS {{  statusCode }} | {{ error }}
+        </v-alert>
+      </v-row>
+
       <v-row>
         <v-col v-for="(obj, ind) in data" :key="ind">
           <LoginUserCard :user="obj" />

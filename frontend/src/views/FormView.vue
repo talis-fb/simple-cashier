@@ -30,6 +30,7 @@ const paymentMethod = useField<PaymentMethod>('paymentMethod')
 const comission = useField('comission')
 
 const errorAlert = ref('')
+const errorStatus = ref(0)
 
 onMounted(() => {
   if (comingFromAnOption) {
@@ -40,7 +41,7 @@ onMounted(() => {
 })
 
 const submit = handleSubmit(async (values) => {
-  const { error, data } = await useFetch('http://localhost:3000/api/v1/caixa').post({
+  const { error, data, statusCode } = await useFetch('http://localhost:3000/api/v1/caixa').post({
     service: {
       name: serviceName.value.value,
       title: serviceName.value.value,
@@ -53,6 +54,7 @@ const submit = handleSubmit(async (values) => {
 
   if(error.value) {
     errorAlert.value = error.value
+    errorStatus.value = statusCode.value as number
     return
   }
 
@@ -79,7 +81,7 @@ const clearForm = () => {
       <v-col cols="12" sm="10" md="8" lg="6">
         <form @submit.prevent="submit">
           <v-alert v-if="errorAlert" type="error" border class="mb-5">
-            {{ errorAlert }}
+             STATUS {{  errorStatus }} | {{ errorAlert }}
           </v-alert>
 
           <v-text-field

@@ -8,7 +8,7 @@ import type { OptionConfig, Option } from '@/types'
 //   return error.value ||
 // })
 
-const { data, isFetching, error } = useFetch('http://localhost:3000/api/v1/options')
+const { data, isFetching, error, statusCode } = useFetch('http://localhost:3000/api/v1/options')
   .get()
   .json<OptionConfig>()
 
@@ -31,7 +31,7 @@ const optionsToShow = computed(() => {
 
     <v-row v-if="error">
       <v-alert  type="error" border class="mb-5">
-        {{ error }}
+        STATUS {{  statusCode }} | {{ error }}
       </v-alert>
     </v-row>
 
