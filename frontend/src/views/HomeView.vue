@@ -8,7 +8,7 @@ import type { OptionConfig, Option } from '@/types'
 //   return error.value ||
 // })
 
-const { data, isFetching, error, statusCode } = useFetch('http://localhost:3000/api/v1/options')
+const { data, isFetching, error, statusCode } = useFetch('/api/v1/options')
   .get()
   .json<OptionConfig>()
 

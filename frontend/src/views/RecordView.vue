@@ -11,7 +11,7 @@ import { number } from 'yup'
 
 const { currentUser } = useStore()
 
-const { data, isFetching, error, statusCode } = useFetch(`http://localhost:3000/api/v1/caixa/employee/${currentUser.nome}`)
+const { data, isFetching, error, statusCode } = useFetch(`/api/v1/caixa/employee/${currentUser.nome}`)
   .get()
   .json<TradeData[]>()
 

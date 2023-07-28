@@ -1,0 +1,28 @@
+FROM node:18.17.0
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the backend application files into the container
+COPY backend/package.json ./
+COPY backend/yarn.lock ./
+
+# Install dependencies
+RUN yarn install
+
+# Copy the rest of the backend application files
+COPY backend/ .
+
+COPY registros.yaml ./
+COPY usuarios.yaml ./
+COPY .env.backend ./.env
+
+
+# Expose the port that your Nest.js backend is listening on (change 3000 to the appropriate port if needed)
+EXPOSE 3000
+
+# Build
+RUN yarn build
+
+# Start the backend application
+CMD ["yarn", "start:prod"]

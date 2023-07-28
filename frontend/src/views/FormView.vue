@@ -41,7 +41,7 @@ onMounted(() => {
 })
 
 const submit = handleSubmit(async (values) => {
-  const { error, data, statusCode } = await useFetch('http://localhost:3000/api/v1/caixa').post({
+  const { error, data, statusCode } = await useFetch('/api/v1/caixa').post({
     service: {
       name: serviceName.value.value,
       title: serviceName.value.value,

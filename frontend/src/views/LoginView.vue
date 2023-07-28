@@ -6,7 +6,7 @@ import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 import type { User } from '@/types'
 
-const { data, isFetching, error, statusCode } = useFetch('http://localhost:3000/api/v1/users')
+const { data, isFetching, error, statusCode } = useFetch('/api/v1/users')
   .get()
   .json<User[]>()
 
