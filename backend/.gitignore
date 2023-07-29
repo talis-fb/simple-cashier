@@ -1,11 +1,13 @@
 .env
 
+
 # Google API Credencials
 credentials.json
 
 
 # compiled output
 /dist
+/client
 /node_modules
 
 # Logs
