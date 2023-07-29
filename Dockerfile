@@ -3,61 +3,58 @@
 ## This Dockerfile is to setup app in only ONE Container 
 ## ---------------------------------------------------------------------
 ## ---------------------------------------------------------------------
-FROM node:18.17.0 as build
-
-# Set the working directory inside the container
-WORKDIR /app
-
-RUN mkdir backend && mkdir frontend
 
 # -------------------
-# FRONTEND
+# BUILD - Frontend
 # -------------------
-COPY frontend/package.json ./frontend/
-COPY frontend/yarn.lock ./frontend/
+FROM node:18.17.0-alpine AS build-frontend
+
+WORKDIR /app/frontend
+
+COPY frontend/package.json .
+COPY frontend/yarn.lock .
 
 # Install dependencies
-RUN cd frontend && yarn install
+RUN yarn install
 
 # Copy the rest of the frontend application files
-COPY frontend/ ./frontend
+COPY frontend/ .
 
 # Build
-RUN cd frontend && yarn build-only
+RUN yarn build-only
 
 # -------------------
-# BACKEND
+# BUILD - Backend
 # -------------------
-COPY backend/package.json ./backend/
-COPY backend/yarn.lock ./backend/
+FROM node:18.17.0-alpine AS build-backend
+
+WORKDIR /app/backend
+
+COPY backend/package.json .
+COPY backend/yarn.lock .
 
 # Install dependencies
-RUN cd backend && yarn install
+RUN yarn install
 
-# Copy the rest of the backend application files
-COPY backend/ ./backend
-
-COPY registros.yaml ./backend/
-COPY usuarios.yaml ./backend/
-COPY .env.backend ./backend/.env
+COPY backend/ .
 
 # Build
-RUN cd backend && yarn build
+RUN yarn build
 
 # -------------------
-## HOSTING
+# Runner
 # -------------------
-# Install Nginx
-RUN apt-get update && apt-get install -y nginx
+FROM node:18.17.0-alpine AS runner
 
-COPY infra/nginx-single-container/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /app
 
-RUN npm install -g http-server
+COPY --from=build-backend /app/backend/dist dist/
+COPY --from=build-backend /app/backend/node_modules node_modules/
+COPY --from=build-frontend /app/frontend/dist client/
 
-EXPOSE 80
-EXPOSE 443
+COPY registros.yaml .
+COPY usuarios.yaml .
 
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+EXPOSE 3000
 
-CMD ["./start.sh"]
+CMD ["node", "dist/main"]

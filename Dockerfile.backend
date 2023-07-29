@@ -15,7 +15,6 @@ COPY backend/ .
 
 COPY registros.yaml ./
 COPY usuarios.yaml ./
-COPY .env.backend ./.env
 
 
 # Expose the port that your Nest.js backend is listening on (change 3000 to the appropriate port if needed)
