@@ -1,15 +1,5 @@
 import { PaymentMethodValues } from '@/constants'
 
-export interface Option {
-  titulo: string
-  valor: number
-  comissao: number
-  imagem?: string
-  categoria?: string
-}
-
-export type OptionConfig = Record<string, Option>
-
 export type PaymentMethod = (typeof PaymentMethodValues)[number]
 
 export interface Service {
@@ -17,6 +7,7 @@ export interface Service {
   title: string
   value: number
   commission: number
+  tip: number
 }
 
 export interface TradeData {
@@ -31,3 +22,13 @@ export interface User {
   nome: string
   foto: string
 }
+
+export interface Option {
+  titulo: string
+  valor: number
+  comissao: number
+  imagem?: string
+  categoria?: string
+}
+
+export type OptionConfig = Record<string, Option>

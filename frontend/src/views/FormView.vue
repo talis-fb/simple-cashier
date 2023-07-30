@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStore as useOptionStore } from '@/stores/counter'
+import { useStore as useOptionStore } from '@/stores/options'
 import { useStore as useUserStore } from '@/stores/user'
 import router from '@/plugins/router'
 const { currentTrade, comingFromAnOption, resetTrade } = useOptionStore()
@@ -7,8 +7,8 @@ const { currentUser } = useUserStore()
 
 import SelectMeioPagamento from '@/components/SelectMeioPagamento.vue'
 import { ref } from 'vue'
-import { useFetch } from '@vueuse/core'
-import type { TradeData, PaymentMethod } from '@/types'
+import { useFetch } from '@/composables/useFetch'
+import type { TradeData, PaymentMethod, Service } from '@/types'
 import { PaymentMethodValues } from '@/constants'
 import * as yup from 'yup'
 
@@ -20,7 +20,8 @@ const { handleSubmit, resetForm, isSubmitting } = useForm({
     serviceName: yup.string().required(),
     value: yup.number().required().positive(),
     paymentMethod: yup.string().required().oneOf(PaymentMethodValues),
-    comission: yup.number().required().positive().max(100)
+    comission: yup.number().required().positive().max(100),
+    tip: yup.number().optional().min(0),
   })
 })
 
@@ -28,6 +29,7 @@ const serviceName = useField('serviceName')
 const value = useField('value')
 const paymentMethod = useField<PaymentMethod>('paymentMethod')
 const comission = useField('comission')
+const tip = useField('tip')
 
 const errorAlert = ref('')
 const errorStatus = ref(0)
@@ -45,8 +47,9 @@ const submit = handleSubmit(async (values) => {
     service: {
       name: serviceName.value.value,
       title: serviceName.value.value,
-      value: value.value.value,
-      commission: comission.value.value
+      value: Number(value.value.value),
+      commission: Number(comission.value.value),
+      tip: Number(tip.value.value || 0),
     },
     paymentMethod: paymentMethod.value.value,
     employee: currentUser.nome
@@ -110,6 +113,14 @@ const clearForm = () => {
           <SelectMeioPagamento 
             v-model="paymentMethod.value.value" 
             :error-messages="paymentMethod.errorMessage.value" 
+          />
+
+          <v-text-field
+            label="Gorjeta"
+            variant="outlined"
+            prefix="R$"
+            v-model="tip.value.value"
+            :error-messages="tip.errorMessage.value"
           />
 
           <v-btn class="me-4" type="submit"> submit </v-btn>

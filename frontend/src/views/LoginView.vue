@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Servico from '@/components/Servico.vue'
 import LoginUserCard from '@/components/LoginUserCard.vue'
-import { useFetch } from '@vueuse/core'
+import { useFetch } from '@/composables/useFetch'
 import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
 import type { User } from '@/types'

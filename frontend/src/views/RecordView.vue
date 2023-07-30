@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
-import { useFetch } from '@vueuse/core'
+import { useFetch } from '@/composables/useFetch'
 import { computed } from 'vue'
 import { onMounted, ref } from 'vue'
-import type { TradeData } from '@/types'
+import type { Service, TradeData } from '@/types'
 import { useStore } from '@/stores/user'
 import moment from 'moment'
 import { number } from 'yup'
@@ -19,6 +19,12 @@ const records = computed(() => Object.values(data.value || []))
 
 const getComissionValue = (value: number, comission: number) => {
   return parseFloat((value * (comission / 100)).toFixed(4))
+}
+
+const getGainValue = (service: Service) => {
+  const comissionValue = getComissionValue(service.value , service.commission)
+  const tip = service.tip
+  return comissionValue + tip
 }
 
 const START_OF_TODAY = (() => {
@@ -131,6 +137,7 @@ const dataFormatted = computed(() => {
             <th class="text-left">Serviço</th>
             <th class="text-left">Preço</th>
             <th class="text-left">Comissão</th>
+            <th class="text-left">Gorjeta</th>
             <th class="text-left">Ganho</th>
           </tr>
         </thead>
@@ -141,7 +148,8 @@ const dataFormatted = computed(() => {
             <td>{{ item.service.name }}</td>
             <td>R$ {{ item.service.value }}</td>
             <td>{{ item.service.commission }} % </td>
-            <td> + R$ {{ getComissionValue(item.service.value, item.service.commission) }} </td>
+            <td>R$ {{ item.service.tip }}</td>
+            <td> + R$ {{ getGainValue(item.service) }} </td>
           </tr>
         </tbody>
       </v-table>

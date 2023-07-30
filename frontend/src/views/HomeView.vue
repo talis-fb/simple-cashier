@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Servico from '@/components/Servico.vue'
-import { useFetch } from '@vueuse/core'
+import { useFetch } from '@/composables/useFetch'
 import { ref, watch, computed } from 'vue'
 import type { OptionConfig, Option } from '@/types'
 

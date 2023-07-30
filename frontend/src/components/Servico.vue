@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Option } from '@/types'
 
-import { useStore } from '@/stores/counter'
+import { useStore } from '@/stores/options'
 const { setTrade } = useStore()
 
 defineProps<{
