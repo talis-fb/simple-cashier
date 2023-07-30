@@ -1,4 +1,4 @@
-import { IsDecimal, Min, Max, IsNotEmpty, IsPositive } from 'class-validator';
+import { IsDecimal, Min, Max, IsNotEmpty, IsPositive, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class Service {
@@ -11,12 +11,20 @@ export class Service {
   title: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @Min(0)
   value: number;
 
   @ApiProperty()
-  @IsDecimal()
+  @IsNotEmpty()
+  @IsNumber()
   @Min(0)
-  @Max(1)
+  @Max(100)
   commission: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  tip: number;
 }

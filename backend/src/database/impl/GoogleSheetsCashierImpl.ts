@@ -126,6 +126,7 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
       service_name: data.service.name,
       service_value: data.service.value,
       service_commission: data.service.commission,
+      service_tip: data.service.tip,
       employee: data.employee,
       payment_method: data.paymentMethod,
       id: data.id,
@@ -144,6 +145,7 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
         title: row.get("service_name"),
         value: parseFloat(row.get("service_value")),
         commission: parseFloat(row.get("service_commission")),
+        tip: parseFloat(row.get("service_tip"))
       },
       employee: row.get("employee"),
       paymentMethod: row.get("payment_method"),

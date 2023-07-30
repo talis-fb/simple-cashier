@@ -2,12 +2,19 @@
 - titulo: 'Corte Social simples'
   valor: 12.00
   comissao: 50
-  imagem: 'http://www.thewowstyle.com/wp-content/uploads/2015/01/images-of-nature-4.jpg'
+  imagem: 'https://homensquesecuidam.com/wp-content/uploads/2019/11/cortes-de-cabelo-masculino-liso-para-2020-c-por-juan-alves-homens-que-se-cuidam.jpg'
 
-- titulo: 'Corte brabo'
+- titulo: 'Corte Na tesoura'
   valor: 15.00
   comissao: 50
+  imagem: 'https://image.freepik.com/fotos-gratis/cortar-o-cabelo-com-uma-tesoura-no-cabeleireiro-corte-de-cabelo-bonito_118478-810.jpg'
 
-- titulo: 'Gel'
+- titulo: 'Gel simples'
   valor: 25.00
-  comissao: 20
+  comissao: 25
+  imagem: 'https://http2.mlstatic.com/D_NQ_NP_808751-MLB41292163289_032020-F.jpg'
+
+- titulo: 'Gel duradouro'
+  valor: 45.00
+  comissao: 25
+  imagem: 'https://http2.mlstatic.com/D_NQ_NP_808751-MLB41292163289_032020-F.jpg'

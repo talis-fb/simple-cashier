@@ -1,4 +1,5 @@
-import { IsDate, IsIn, IsUUID, IsNotEmpty, IsInt } from 'class-validator';
+import { IsIn, IsUUID, IsNotEmpty, IsInt, ValidateNested, IsDefined, IsNotEmptyObject } from 'class-validator';
+import {Type } from 'class-transformer';
 import { Service } from './service.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -11,8 +12,12 @@ export const PaymentMethodValues = [
 export type PaymentMethod = (typeof PaymentMethodValues)[number];
 
 export class TradeData {
-  @ApiProperty()
+  @IsDefined()
   @IsNotEmpty()
+  @IsNotEmptyObject()
+  @ValidateNested({ each: true })
+  @Type(() => Service)
+  @ApiProperty()
   service: Service;
 
   @ApiProperty()
