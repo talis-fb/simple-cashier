@@ -52,7 +52,7 @@ const dailyGain = computed(() => {
   if(data.value) {
     return data.value
     .filter(el => Number(el.date) > START_OF_TODAY.getTime())
-      .map(el => getComissionValue(el.service.value, el.service.commission))
+      .map(el => getGainValue(el.service))
       .reduce((a,b) => a + b, 0)
   }
   return null
@@ -62,7 +62,7 @@ const weeklyGain = computed(() => {
   if(data.value) {
     return data.value
       .filter(el => Number(el.date) > START_OF_WEEK.getTime())
-      .map(el => getComissionValue(el.service.value, el.service.commission))
+      .map(el => getGainValue(el.service))
       .reduce((a,b) => a + b, 0)
   }
   return null
