@@ -1,1 +1,1 @@
-export const PaymentMethodValues = ['cash', 'pix', 'debit-card', 'credit-card'] as const
+export const PaymentMethodValues = ['cash', 'pix', 'debit-card', 'credit-card', 'fidelity'] as const

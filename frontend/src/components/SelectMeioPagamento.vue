@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { User } from '@/types'
+import type { User, PaymentMethod } from '@/types'
 import { useStore } from '@/stores/user'
 import { ref, watch } from 'vue'
 const { currentUser } = useStore()
@@ -7,11 +7,12 @@ const { currentUser } = useStore()
 const props = defineProps<{ modelValue: string, errorMessages?: string }>()
 const emits = defineEmits(['update:modelValue'])
 
-const METHODS_PAYMENT = [
+const METHODS_PAYMENT: Array<{ name: PaymentMethod, title: string}> = [
   { name: 'cash', title: '💵 Dinheiro' },
   { name: 'pix', title: '💸 Pix' },
   { name: 'debit-card', title: '💳 Cartão Débito' },
-  { name: 'credit-card', title: '💳 Cartão Crédito' }
+  { name: 'credit-card', title: '💳 Cartão Crédito' },
+  { name: 'fidelity', title: '🎁 Fidelidade' },
 ]
 
 const selected = ref<string>()

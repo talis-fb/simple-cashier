@@ -8,6 +8,7 @@ export const PaymentMethodValues = [
   'pix',
   'debit-card',
   'credit-card',
+  'fidelity',
 ] as const;
 export type PaymentMethod = (typeof PaymentMethodValues)[number];
 
