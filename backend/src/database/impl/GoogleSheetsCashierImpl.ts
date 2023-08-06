@@ -12,7 +12,7 @@ import {
 import { JWT, OAuth2Client } from "google-auth-library";
 import { TradeData, TradeEntity } from "src/entity/trade.entity";
 import { randomUUID } from "crypto";
-import * as moment from 'moment'
+import * as moment from 'moment-timezone'
 
 
 @Injectable()
@@ -120,7 +120,7 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
   }
 
   private mapToSheetRow(data: TradeEntity): any {
-    const formattedDate = moment(new Date(data.date)).format('DD/MM/YYYY HH:mm')
+    const formattedDate = moment(new Date(data.date)).tz("America/Recife").format('DD/MM/YYYY HH:mm')
 
     return {
       service_name: data.service.name,
