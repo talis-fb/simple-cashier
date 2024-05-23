@@ -7,7 +7,7 @@
 # -------------------
 # BUILD - Frontend
 # -------------------
-FROM node:18.17.0-alpine AS build-frontend
+FROM node:20.13.1-alpine AS build-frontend
 
 WORKDIR /app/frontend
 
@@ -26,7 +26,7 @@ RUN yarn build-only
 # -------------------
 # BUILD - Backend
 # -------------------
-FROM node:18.17.0-alpine AS build-backend
+FROM node:20.13.1-alpine AS build-backend
 
 WORKDIR /app/backend
 
@@ -44,7 +44,7 @@ RUN yarn build
 # -------------------
 # Runner
 # -------------------
-FROM node:18.17.0-alpine AS runner
+FROM node:20.13.1-alpine AS runner
 
 WORKDIR /app
 
@@ -54,7 +54,5 @@ COPY --from=build-frontend /app/frontend/dist client/
 
 COPY registros.yaml .
 COPY usuarios.yaml .
-
-EXPOSE 3000
 
 CMD ["node", "dist/main"]

@@ -11,9 +11,9 @@ export class InMemoryCashierImpl extends CashierRepository {
     return this.tradeList;
   }
 
-  async getById(id: string): Promise<TradeEntity | null> {
+  async getById(id: string): Promise<TradeEntity | void> {
     const cash = this.tradeList.find((item) => item.id === id);
-    return cash ? cash : null;
+    return cash;
   }
 
   async getAllOfEmployee(name: string): Promise<TradeEntity[]> {

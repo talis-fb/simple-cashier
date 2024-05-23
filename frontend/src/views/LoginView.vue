@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import Servico from '@/components/Servico.vue'
 import LoginUserCard from '@/components/LoginUserCard.vue'
 import { useFetch } from '@/composables/useFetch'
-import { computed } from 'vue'
-import { onMounted, ref } from 'vue'
 import type { User } from '@/types'
 
-const { data, isFetching, error, statusCode } = useFetch('/api/v1/users')
+const { data, error, statusCode } = useFetch('/api/v1/users')
   .get()
   .json<User[]>()
-
-const opts = computed(() => Object.values(data.value || {}))
 </script>
 
 <template>

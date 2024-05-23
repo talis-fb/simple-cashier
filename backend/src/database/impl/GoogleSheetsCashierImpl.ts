@@ -66,7 +66,7 @@ export class GoogleSpreadsheetCashierImpl implements CashierRepository {
     return rows.map((row) => this.mapToTradeEntity(row));
   }
 
-  async getById(id: string): Promise<TradeEntity | null> {
+  async getById(id: string): Promise<TradeEntity | void> {
     await this.authorize();
     const rows = await this.sheet!.getRows();
     const matchingRow = rows.find((row) => row.get("id") === id);
